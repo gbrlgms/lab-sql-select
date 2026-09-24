@@ -35,15 +35,13 @@ SELECT
 	au.au_id AS `AUTHOR ID`, 
 	au.au_lname AS `LAST NAME`,
 	au.au_fname AS `FIRST NAME`,
-	SUM(sa.qty) AS `TOTAL`
+	SUM(ti.ytd_sales) AS `TOTAL`
 FROM authors AS au
 INNER JOIN titleauthor AS ta
 	ON au.au_id = ta.au_id
 INNER JOIN titles AS ti
 	ON ta.title_id = ti.title_id
-INNER JOIN sales AS sa
-	ON ti.title_id = sa.title_id
-GROUP BY `AUTHOR ID`
+GROUP BY `AUTHOR ID`, `LAST NAME`, `FIRST NAME`
 ORDER BY `TOTAL` DESC
 LIMIT 3;
 
@@ -52,13 +50,11 @@ SELECT
 	au.au_id AS `AUTHOR ID`, 
 	au.au_lname AS `LAST NAME`,
 	au.au_fname AS `FIRST NAME`,
-	IFNULL(SUM(sa.qty), 0) AS `TOTAL`
+	IFNULL(SUM(ti.ytd_sales), 0) AS `TOTAL`
 FROM authors AS au
 LEFT JOIN titleauthor AS ta
 	ON au.au_id = ta.au_id
 LEFT JOIN titles AS ti
 	ON ta.title_id = ti.title_id
-LEFT JOIN sales AS sa
-	ON ta.title_id = sa.title_id
 GROUP BY `AUTHOR ID`
 ORDER BY `TOTAL` DESC
