@@ -56,5 +56,5 @@ LEFT JOIN titleauthor AS ta
 	ON au.au_id = ta.au_id
 LEFT JOIN titles AS ti
 	ON ta.title_id = ti.title_id
-GROUP BY `AUTHOR ID`
+GROUP BY `AUTHOR ID`, `LAST NAME`, `FIRST NAME`
 ORDER BY `TOTAL` DESC
